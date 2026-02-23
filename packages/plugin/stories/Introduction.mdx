@@ -1,0 +1,218 @@
+{/* Introduction.mdx */}
+
+import { Meta } from '@storybook/blocks';
+import { Tabs, TabItem } from '../src/index';
+
+<Meta title="storybook-tabs/Introduction" />
+
+# storybook-tabs
+
+A Storybook addon that brings [Docusaurus-style tabs](https://docusaurus.io/docs/markdown-features/tabs)
+to Storybook MDX. Drop-in compatible with the Docusaurus `<Tabs>` / `<TabItem>` API.
+
+## Installation
+
+```bash
+npm install storybook-tabs
+```
+
+## Usage in MDX
+
+Import the components and use them in any `.mdx` file:
+
+```mdx
+import { Tabs, TabItem } from 'storybook-tabs';
+
+<Tabs>
+  <TabItem value="npm" label="npm">
+    ```bash
+    npm install my-package
+    ```
+  </TabItem>
+  <TabItem value="yarn" label="Yarn">
+    ```bash
+    yarn add my-package
+    ```
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+    ```bash
+    pnpm add my-package
+    ```
+  </TabItem>
+</Tabs>
+```
+
+---
+
+## Live Examples
+
+### Basic Tabs
+
+<Tabs>
+  <TabItem value="npm" label="npm">
+
+```bash
+npm install my-package
+```
+
+  </TabItem>
+  <TabItem value="yarn" label="Yarn">
+
+```bash
+yarn add my-package
+```
+
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm add my-package
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+### Default Tab
+
+Use the `default` attribute on a `TabItem` to pre-select it, or pass `defaultValue` to `Tabs`.
+
+<Tabs defaultValue="orange">
+  <TabItem value="apple" label="Apple">
+    This is an apple 🍎
+  </TabItem>
+  <TabItem value="orange" label="Orange">
+    This is an orange 🍊
+  </TabItem>
+  <TabItem value="banana" label="Banana">
+    This is a banana 🍌
+  </TabItem>
+</Tabs>
+
+---
+
+### Synced Tab Groups
+
+All `<Tabs>` sharing the same `groupId` stay in sync. Switching one switches all.
+The selection is also persisted to `sessionStorage` so it survives page navigation.
+
+**Install command:**
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm" label="npm">
+
+```bash
+npm install my-package
+```
+
+  </TabItem>
+  <TabItem value="yarn" label="Yarn">
+
+```bash
+yarn add my-package
+```
+
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm add my-package
+```
+
+  </TabItem>
+</Tabs>
+
+**Run dev server:**
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm" label="npm">
+
+```bash
+npm run dev
+```
+
+  </TabItem>
+  <TabItem value="yarn" label="Yarn">
+
+```bash
+yarn dev
+```
+
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm dev
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+### Lazy Rendering
+
+Pass `lazy` to only mount the active tab's content. Useful when tab content is expensive.
+
+<Tabs lazy>
+  <TabItem value="first" label="First Tab">
+    This tab's content is only mounted when it's active.
+  </TabItem>
+  <TabItem value="second" label="Second Tab">
+    Switch back and forth — inactive tabs are **unmounted**.
+  </TabItem>
+</Tabs>
+
+---
+
+### Hiding a Tab
+
+Use the `hidden` prop to hide a tab without removing it from the DOM.
+
+<Tabs>
+  <TabItem value="visible1" label="Tab A">
+    Tab A content
+  </TabItem>
+  <TabItem value="hidden-tab" label="Hidden" hidden>
+    You can't select me via the tab bar, but I'm still here.
+  </TabItem>
+  <TabItem value="visible2" label="Tab C">
+    Tab C content
+  </TabItem>
+</Tabs>
+
+---
+
+## API Reference
+
+### `<Tabs>` Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultValue` | `string` | First tab | Value of the initially selected tab |
+| `groupId` | `string` | — | Sync multiple Tabs instances; persists to `sessionStorage` |
+| `queryString` | `boolean \| string` | `false` | Reflect selection in URL query string; pass a string to customise the param name |
+| `lazy` | `boolean` | `false` | Only render the active tab's content |
+| `className` | `string` | — | Additional CSS class for the wrapper `<div>` |
+
+### `<TabItem>` Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | *(required)* | Unique identifier for this tab |
+| `label` | `string` | `value` | Text shown in the tab button |
+| `default` | `boolean` | `false` | Mark this as the default selected tab |
+| `hidden` | `boolean` | `false` | Hide this tab from the tab bar |
+| `attributes` | `Record<string, unknown>` | — | Extra HTML attributes for the tab `<button>` |
+
+---
+
+## Keyboard Navigation
+
+| Key | Action |
+|-----|--------|
+| `←` / `→` | Move focus between tabs |
+| `Home` | Focus the first tab |
+| `End` | Focus the last tab |
+| `Enter` / `Space` | Select the focused tab |

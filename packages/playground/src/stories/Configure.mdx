@@ -1,0 +1,26 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { Tabs, TabItem } from '../../../plugin/dist/index.js';
+
+<Meta title="Demo" />
+
+# Configure
+
+This is a demo of the `configure` function.
+
+<Tabs>
+    <TabItem value="npm" label="npm">
+        ```bash
+        npm install my-package
+        ```
+    </TabItem>
+    <TabItem value="yarn" label="Yarn">
+        ```bash
+        yarn add my-package
+        ```
+    </TabItem>
+    <TabItem value="pnpm" label="pnpm">
+        ```bash
+        pnpm add my-package
+        ```
+    </TabItem>
+</Tabs>
